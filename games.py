@@ -30,7 +30,7 @@ import random
 
 def game_data(players, count):
     now = datetime.datetime.now()
-    for id in xrange(count):
+    for id in xrange(1, count+1):
         yield {
             "id": id,
             "logURL": "about:blank",
