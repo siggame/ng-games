@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def games_list():
+def index():
     return render_template('games_list.html')
 
 
