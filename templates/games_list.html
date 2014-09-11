@@ -5,24 +5,37 @@
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css">
   </head>
 
-  <body ng-controller="GamesController as games_list">
-    <div ng-repeat="game in games_list.games">
-      <table>
-        <tr>
-          <th>Game #</th>
-          <th>Scores</th>
-          <th>Result</th>
-        </tr>
-        <tr>
-          <td>{{1}}</td><!--game.id-->
-          <td>{{2}}</td><!--game.scores-->
-          <td>{{3}}</td><!--game.result-->
-        </tr>
-      </table>
-    </div>
+  {% raw %}
+  <h1>Hey</h1>
 
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"</script>
-    <script type="text/javascript" src="static/js/games_list.js"></script>
+  <body ng-controller="GamesController as games_list">
+    <table class="table">
+      <tr>
+        <th>Game #</th>
+        <th>Scores</th>
+        <th>Result</th>
+      </tr>
+      <tr ng-repeat="game in games_list.games">
+        <td>{{ game.id }}</td>
+        <td>
+          <ul class="list-unstyled">
+            <li ng-repeat="(name, score) in game.players">
+              {{ name }}: {{ score }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <span>Winner: Everyone :3</span>
+        </td>
+      </tr>
+    </table>
+
+    {% endraw %}
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-resource.js"></script>
+    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/games_list.js"></script>
   </body>
 </html>

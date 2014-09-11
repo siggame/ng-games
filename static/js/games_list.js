@@ -1,9 +1,14 @@
 (function(){
-  var app = angular.module('ng-games', []);
+  var app = angular.module('ng-games', ['ngResource']);
 
-  app.controller('GamesController', function(){
-    this.games_list = games;
+  app.factory("Game", function($resource) {
+    return $resource("/api/games/:id");
   });
 
-  var games = [];
+  app.controller('GamesController', function(Game){
+    controller = this;
+    Game.query(function(data) {
+      controller.games = data;
+    });
+  });
 })();
