@@ -18,7 +18,12 @@ def index():
     return render_template('games_list.html')
 
 
-@app.route("/api/")
+@app.route("/api/games/<id>/")
+def game_api(id):
+    return json.dumps(game_dict[id])
+
+
+@app.route("/api/games/")
 def games_api():
     limit = request.args.get('limit') or GAMES_COUNT
     skip = request.args.get('skip') or 0
@@ -36,5 +41,6 @@ if __name__ == "__main__":
         players = json.load(players_file)
         game_gen = games.game_data(players, GAMES_COUNT)
         game_list = list(game_gen)
+        game_dict = {str(x['id']): x for x in game_list}
 
     app.run(debug=True)
