@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 
 import argparse
 import games
@@ -19,7 +20,9 @@ def index():
 
 @app.route("/api/")
 def games_api():
-    return json.dumps(game_list)
+    limit = request.args.get('limit') or GAMES_COUNT
+    skip = request.args.get('skip') or 0
+    return json.dumps(game_list[int(skip):int(skip)+int(limit)])
 
 
 if __name__ == "__main__":
