@@ -3,6 +3,7 @@
   <head>
     <title>Games List</title>
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
 
   {% raw %}
@@ -15,7 +16,7 @@
         <th>Scores</th>
         <th>Result</th>
       </tr>
-      <tr ng-repeat="game in games_list.games">
+      <tr ng-repeat="game in games_list.games_shown">
         <td>{{ game.id }}</td>
         <td>
           <ul class="list-unstyled">
@@ -29,7 +30,13 @@
         </td>
       </tr>
     </table>
-
+    
+    <h1 class="text-center">
+      <span ng-click="games_list.nextPage()" class="btn btn-info">
+        <span class="fa fa-plus"></span>  Load {{ games_list.page_size }} More Games
+      </span>
+    </h1>
+    
     {% endraw %}
 
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.js"></script>
