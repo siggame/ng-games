@@ -30,12 +30,14 @@
         </td>
       </tr>
     </table>
-    
-    <h1 class="text-center">
-      <span ng-click="games_list.nextPage()" class="btn btn-info">
-        <span class="fa fa-plus"></span>  Load {{ games_list.page_size }} More Games
-      </span>
-    </h1>
+
+    <div ng-if="games_list.last_index < games_list.all_games.length">
+      <h1 class="text-center">
+        <span ng-click="games_list.nextPage()" class="btn btn-info">
+          <span class="fa fa-plus"></span>  Load {{ games_list.page_size }} More Games
+        </span>
+      </h1>
+    </div>
     
     {% endraw %}
 
