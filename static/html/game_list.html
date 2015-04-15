@@ -1,0 +1,20 @@
+<table class="table">
+  <tr>
+    <th>Game #</th>
+    <th>Scores</th>
+    <th>Result</th>
+  </tr>
+  <tr ng-repeat="game in game_list.games">
+    <td>{{ game.id }}</td>
+    <td>
+      <ul class="list-unstyled">
+        <li ng-repeat="(name, score) in game.players">
+          {{ name }}: {{ score }}
+        </li>
+      </ul>
+    </td>
+    <td>
+      <span>Winner: Everyone :3</span>
+    </td>
+  </tr>
+</table>

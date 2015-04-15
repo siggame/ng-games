@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import send_from_directory
 
 import argparse
 import games
@@ -15,7 +16,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template('games_list.html')
+    return render_template('index.html')
 
 
 @app.route("/api/games/<id>/")
@@ -28,6 +29,11 @@ def games_api():
     limit = request.args.get('limit') or GAMES_COUNT
     skip = request.args.get('skip') or 0
     return json.dumps(game_list[int(skip):int(skip)+int(limit)])
+
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
 
 
 if __name__ == "__main__":

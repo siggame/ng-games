@@ -6,36 +6,16 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
 
-  {% raw %}
-  <h1 class="text-center">Games List</h1>
+  <h1 class="text-center">Games</h1>
 
-  <body ng-controller="GamesController as gameController">
-    <table class="table">
-      <tr>
-        <th>Game #</th>
-        <th>Scores</th>
-        <th>Result</th>
-      </tr>
-      <tr ng-repeat="game in gameController.games">
-        <td>{{ game.id }}</td>
-        <td>
-          <ul class="list-unstyled">
-            <li ng-repeat="(name, score) in game.players">
-              {{ name }}: {{ score }}
-            </li>
-          </ul>
-        </td>
-        <td>
-          <span>Winner: Everyone :3</span>
-        </td>
-      </tr>
-    </table>
+  <body>
 
-    {% endraw %}
+    <div ui-view></div>
 
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.2.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/games_list.js"></script>
   </body>
