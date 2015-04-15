@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('ng-games', ['ngResource', 'ui.router']);
+    var app = angular.module('ng-games', ['ngResource', 'ui.router', 'smart-table']);
 
     app.config(function($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise("/");
