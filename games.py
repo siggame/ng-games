@@ -30,7 +30,13 @@ import random
 
 def game_data(players, count):
     now = datetime.datetime.now()
+    player = players[0]
     for id in xrange(1, count+1):
+        players = (player, random.choice(players[1:]))
+
+        scores = [0, 1]
+        random.shuffle(scores)
+
         yield {
             "id": id,
             "logURL": "about:blank",
@@ -40,5 +46,5 @@ def game_data(players, count):
                     "time": str(now + datetime.timedelta(minutes=id))
                 }
             ],
-            "players": dict(zip(random.sample(players, 2), (0, 1))),
+            "players": dict(zip(players, scores)),
         }
