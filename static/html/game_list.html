@@ -1,20 +1,19 @@
-<table class="table">
+<table class="table table-condensed text-center">
   <tr>
-    <th>Game #</th>
-    <th>Scores</th>
-    <th>Result</th>
+    <th class="text-center">Updated</th>
+    <th class="text-center">Status</th>
+    <th class="text-center">Opponent</th>
+    <th class="text-center">Download Glog</th>
+    <th class="text-center">WebVis</th>
   </tr>
-  <tr ng-repeat="game in game_list.games">
-    <td>{{ game.id }}</td>
-    <td>
-      <ul class="list-unstyled">
-        <li ng-repeat="(name, score) in game.players">
-          {{ name }}: {{ score }}
-        </li>
-      </ul>
-    </td>
-    <td>
-      <span>Winner: Everyone :3</span>
-    </td>
+  <tr ng-repeat="game in game_list.games | orderBy: game_list.timeStamp"
+      ng-class="{ success: game_list.isWinner(game),
+                  danger: game_list.isLoser(game),
+                  info: !game_list.isComplete(game) }">
+    <td>{{ game_list.timeStamp(game) | date: "short" }}</td>
+    <td>{{ game_list.latestStatus(game) | uppercase }}</td>
+    <td>{{ game_list.getOpponent(game) }}</td>
+    <td><a class="btn btn-sm btn-primary" href="{{ game.logURL }}" target="_blank"><i class="fa fa-cloud-download"></i></a>
+    <td><a class="btn btn-sm btn-primary" href="http://vis.megaminerai.com/?logUrl={{ game.logURL | escape }}" target="_blank"><i class="fa fa-play-circle-o"></i></a>
   </tr>
 </table>
