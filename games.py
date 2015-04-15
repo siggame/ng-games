@@ -37,12 +37,12 @@ def game_data(players, count):
         playing = (player, random.choice(available_players[1:]))
         games[game_id] = {
             "id": game_id,
-            "logURL": "about:blank",
+            "logURL": "http://about:blank",
             "winner": random.choice(playing)[1],
             "updates": [
                 {
                     "status": "complete",
-                    "time": str(now + datetime.timedelta(minutes=game_id))
+                    "time": (now + datetime.timedelta(minutes=game_id)).isoformat()
                 }
             ],
             "players": [{"id": player_id} for (_name, player_id) in playing]
