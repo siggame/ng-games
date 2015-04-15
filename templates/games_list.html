@@ -9,14 +9,14 @@
   {% raw %}
   <h1 class="text-center">Games List</h1>
 
-  <body ng-controller="GamesController as games_list">
+  <body ng-controller="GamesController as gameController">
     <table class="table">
       <tr>
         <th>Game #</th>
         <th>Scores</th>
         <th>Result</th>
       </tr>
-      <tr ng-repeat="game in games_list.games_shown">
+      <tr ng-repeat="game in gameController.games">
         <td>{{ game.id }}</td>
         <td>
           <ul class="list-unstyled">
@@ -31,14 +31,6 @@
       </tr>
     </table>
 
-    <div ng-if="games_list.last_index < games_list.all_games.length">
-      <h1 class="text-center">
-        <span ng-click="games_list.nextPage()" class="btn btn-info">
-          <span class="fa fa-plus"></span>  Load {{ games_list.page_size }} More Games
-        </span>
-      </h1>
-    </div>
-    
     {% endraw %}
 
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.js"></script>
