@@ -17,6 +17,10 @@
         return $resource("/api/games/:id");
     });
 
+    app.factory("Team", function($resource) {
+        return $resource("/api/teams/");
+    });
+
     app.controller('GamesController', function(Game){
         controller = this;
 

@@ -6,6 +6,7 @@ An example of some game data::
     {
         "id": 1,
         "logURL": "http://derp.nope/",
+        "winner": 0,
         "updates": [
             {
                 "status": "complete",
@@ -14,12 +15,10 @@ An example of some game data::
         ],
         "players": [
             {
-                "name": "Team Awesome",
-                "score": 1
+                "id": 0
             },
             {
-                "name": "Team Less Awesome",
-                "score": 0
+                "id": 5
             },
         ]
     }
@@ -30,21 +29,23 @@ import random
 
 def game_data(players, count):
     now = datetime.datetime.now()
-    player = players[0]
-    for id in xrange(1, count+1):
-        players = (player, random.choice(players[1:]))
+    available_players = players.items()
+    player = available_players[0]
 
-        scores = [0, 1]
-        random.shuffle(scores)
-
-        yield {
-            "id": id,
+    games = {}
+    for game_id in xrange(1, count+1):
+        playing = (player, random.choice(available_players[1:]))
+        games[game_id] = {
+            "id": game_id,
             "logURL": "about:blank",
+            "winner": random.choice(playing)[1],
             "updates": [
                 {
                     "status": "complete",
-                    "time": str(now + datetime.timedelta(minutes=id))
+                    "time": str(now + datetime.timedelta(minutes=game_id))
                 }
             ],
-            "players": dict(zip(players, scores)),
+            "players": [{"id": player_id} for (_name, player_id) in playing]
         }
+
+    return games

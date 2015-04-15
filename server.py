@@ -14,21 +14,34 @@ GAMES_COUNT = 100
 app = Flask(__name__)
 
 
-@app.route("/")
-def index():
+@app.route("/competition/<competition>/games/")
+def index(competition):
     return render_template('index.html')
 
 
-@app.route("/api/games/<id>/")
-def game_api(id):
-    return json.dumps(game_dict[id])
+@app.route("/api/competition/<competition>/games/<id>/")
+def game_api(competition, id):
+    return json.dumps(games[competition][id])
 
 
-@app.route("/api/games/")
-def games_api():
+@app.route("/api/competition/<competition>/games/")
+def games_api(competition):
     limit = request.args.get('limit') or GAMES_COUNT
     skip = request.args.get('skip') or 0
+    game_list = games[competition].values()
+    print game_list
     return json.dumps(game_list[int(skip):int(skip)+int(limit)])
+
+
+@app.route("/api/competition/<competition>/teams/")
+def teams_api(competition):
+    return json.dumps([{"id": i, "name": n} for n, i in teams[competition].iteritems()])
+
+
+@app.route("/api/competition/<competition>/team/")
+def team_api(competition):
+    team = my_teams[competition]
+    return json.dumps({"name": team, "id": teams[competition][team]})
 
 
 @app.route('/static/<path:path>')
@@ -44,9 +57,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     with args.players as players_file:
-        players = json.load(players_file)
-        game_gen = games.game_data(players, GAMES_COUNT)
-        game_list = list(game_gen)
-        game_dict = {str(x['id']): x for x in game_list}
+        teams = json.load(players_file)
+
+    games = {c: games.game_data(d, GAMES_COUNT) for c, d in teams.iteritems()}
+    my_teams = {c: ts.keys()[0] for c, ts in teams.iteritems()}
 
     app.run(debug=True)
